@@ -1,7 +1,9 @@
 from datasets import load_dataset
 
-def load_egorshibaev_multi_choice_question():
+def load_question():
     dataset = load_dataset("garage-bAInd/Open-Platypus",split="train")
+    llama_2_prompt_format_datasets = dataset.map(to_llama_2_prompt_format, batched=True)
+    return dataset
 
 def to_llama_2_prompt_format(input):
 
