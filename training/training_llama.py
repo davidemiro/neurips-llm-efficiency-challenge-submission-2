@@ -15,24 +15,23 @@ from trl import SFTTrainer
 from configs.training_configs import *
 from transformers.integrations import HfDeepSpeedConfig
 from ..datasets import dataset_dolly
-
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-tokenizer.pad_token = tokenizer.eos_token
-
-
-
-
-# Load tokenizer and model with QLoRA configuration
-compute_dtype = getattr(torch, bnb_4bit_compute_dtype)
+from model import residual_dropout
 
 
 
 # Load base model
-model = AutoModelForCausalLM.from_pretrained(
+model = residual_dropout.AutoModelForCausalLMWithResidualDropout.from_pretrained(
     model_name,
     device_map=device_map,
     use_auth_token=access_token
 )
+
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+tokenizer.pad_token = tokenizer.eos_token
+
+# Load tokenizer and model with QLoRA configuration
+compute_dtype = getattr(torch, bnb_4bit_compute_dtype)
+
 
 model.hf_device_map
 model.config.use_cache = False
