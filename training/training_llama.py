@@ -1,4 +1,6 @@
 import os
+import sys
+sys.path.insert(0, "/content/neurips_llm_efficiency_challenge")
 import torch
 from datasets import load_dataset
 from transformers import (

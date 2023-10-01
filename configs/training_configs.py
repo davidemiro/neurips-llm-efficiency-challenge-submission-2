@@ -97,6 +97,10 @@ save_steps = 25
 # Log every X updates steps
 logging_steps = 25
 
+#dropout
+start_layer_dropout = 0.0
+end_layer_dropout = 0.2
+
 ################################################################################
 # SFT parameters
 ################################################################################
