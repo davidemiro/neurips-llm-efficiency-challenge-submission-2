@@ -24,11 +24,13 @@ from model import residual_dropout
 # Load base model
 model = residual_dropout.AutoModelForCausalLMWithResidualDropout.from_pretrained(
     model_name,
-    use_auth_token=access_token
+    use_auth_token=access_token,
+    device_map="auto"
 )
 
 tokenizer = AutoTokenizer.from_pretrained(model_name,
-                                          use_auth_token=access_token)
+                                          use_auth_token=access_token,
+                                          device_map="auto")
 tokenizer.pad_token = tokenizer.eos_token
 
 # Load tokenizer and model with QLoRA configuration
