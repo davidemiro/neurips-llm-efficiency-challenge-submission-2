@@ -18,11 +18,8 @@ from configs.training_configs import *
 from transformers.integrations import HfDeepSpeedConfig
 from dataset import dataset_dolly
 from model import residual_dropout
-from transformers import GPTQConfig
 
 
-
-quantization = GPTQConfig()
 # Load base model
 model = residual_dropout.AutoModelForCausalLMWithResidualDropout.from_pretrained(
     model_name,
