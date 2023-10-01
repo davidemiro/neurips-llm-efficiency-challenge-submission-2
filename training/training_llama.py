@@ -16,7 +16,7 @@ from peft import LoraConfig, PeftModel
 from trl import SFTTrainer
 from configs.training_configs import *
 from transformers.integrations import HfDeepSpeedConfig
-from ..datasets import dataset_dolly
+from dataset import dataset_dolly
 from model import residual_dropout
 
 

@@ -1,10 +1,10 @@
-# Load datasets (you can process it here)
+# Load dataset (you can process it here)
 from datasets import load_dataset,concatenate_datasets
 
 
 
 
-# Tokenize the datasets
+# Tokenize the dataset
 
 # LLaMa 2 prompt
 """
