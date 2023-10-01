@@ -28,5 +28,13 @@
   "steps_per_print": 2000,
   "train_batch_size": 32,
   "train_micro_batch_size_per_gpu": 32,
-  "wall_clock_breakdown": false
+  "wall_clock_breakdown": false,
+  "sub_group_size" : 1e12,
+  "elastic_checkpoint" : true,
+  "stage3_gather_16bit_weights_on_model_save": true,
+  "ignore_unused_parameters": true,
+  "round_robin_gradients": true,
+  "zero_hpz_partition_size": 1,
+  "zero_quantized_weights": true,
+  "zero_quantized_gradients": true
 }
