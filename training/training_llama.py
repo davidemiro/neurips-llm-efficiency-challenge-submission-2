@@ -18,19 +18,20 @@ from configs.training_configs import *
 from transformers.integrations import HfDeepSpeedConfig
 from dataset import dataset_dolly
 from model import residual_dropout
+from transformers import GPTQConfig
 
 
 
+quantization = GPTQConfig()
 # Load base model
 model = residual_dropout.AutoModelForCausalLMWithResidualDropout.from_pretrained(
     model_name,
-    use_auth_token=access_token,
-    device_map="auto"
+    use_auth_token=access_token
 )
 
 tokenizer = AutoTokenizer.from_pretrained(model_name,
-                                          use_auth_token=access_token,
-                                          device_map="auto")
+                                          use_auth_token=access_token
+                                          )
 tokenizer.pad_token = tokenizer.eos_token
 
 # Load tokenizer and model with QLoRA configuration
