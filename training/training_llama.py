@@ -24,7 +24,7 @@ from model import residual_dropout
 model = residual_dropout.AutoModelForCausalLMWithResidualDropout.from_pretrained(
     model_name,
     use_auth_token=access_token,
-    device_map=device_map
+    torch_dtype=torch.bfloat16
 )
 
 tokenizer = AutoTokenizer.from_pretrained(model_name,
