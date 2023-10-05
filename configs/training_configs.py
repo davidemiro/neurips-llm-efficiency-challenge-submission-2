@@ -9,7 +9,7 @@ model_name = "meta-llama/Llama-2-13b-chat-hf"
 dataset_name = "databricks/databricks-dolly-15k"
 
 # Fine-tuned model name
-new_model = "llama-2-7b-neurips_dm"
+new_model = "llama-2-13b-neurips_dm"
 
 ################################################################################
 # QLoRA parameters
@@ -52,7 +52,7 @@ num_train_epochs = 1
 
 # Enable fp16/bf16 training (set bf16 to True with an A100)
 fp16 = False
-bf16 = False
+bf16 = True
 
 # Batch size per GPU for training
 per_device_train_batch_size = 4
