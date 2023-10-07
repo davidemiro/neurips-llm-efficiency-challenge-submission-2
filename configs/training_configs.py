@@ -55,7 +55,7 @@ fp16 = False
 bf16 = True
 
 # Batch size per GPU for training
-per_device_train_batch_size = 16
+per_device_train_batch_size = 1
 
 # Batch size per GPU for evaluation
 per_device_eval_batch_size = 4
