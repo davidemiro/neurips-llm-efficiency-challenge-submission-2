@@ -55,13 +55,13 @@ fp16 = False
 bf16 = True
 
 # Batch size per GPU for training
-per_device_train_batch_size = 4
+per_device_train_batch_size = 16
 
 # Batch size per GPU for evaluation
 per_device_eval_batch_size = 4
 
 # Number of update steps to accumulate the gradients for
-gradient_accumulation_steps = 1
+gradient_accumulation_steps = 4
 
 # Enable gradient checkpointing
 gradient_checkpointing = True
@@ -76,10 +76,11 @@ learning_rate = 2e-4
 weight_decay = 0.001
 
 # Optimizer to use
-optim = "paged_adamw_32bit"
+optim = "adamw"
 
 # Learning rate schedule (constant a bit better than cosine)
 lr_scheduler_type = "constant"
+
 
 # Number of training steps (overrides num_train_epochs)
 max_steps = -1
