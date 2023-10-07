@@ -22,7 +22,7 @@ from optimum.bettertransformer import BetterTransformer
 
 #Set max_split_size_mb, see https://github.com/facebookresearch/llama/issues/52
 torch.cuda.set_per_process_memory_fraction(0.5, device=0)
-torch.cuda.set_per_process_memory_growth(True, device=0)
+
 
 # Load base model
 model = residual_dropout.AutoModelForCausalLMWithResidualDropout.from_pretrained(
