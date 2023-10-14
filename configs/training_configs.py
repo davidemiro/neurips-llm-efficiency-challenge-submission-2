@@ -52,8 +52,8 @@ num_train_epochs = 10
 
 # Enable fp16/bf16 training (set bf16 to True with an A100)
 fp16 = False
-bf16 = False
-tf32 = True
+bf16 = True
+tf32 = False
 
 # Batch size per GPU for training
 per_device_train_batch_size = 16
