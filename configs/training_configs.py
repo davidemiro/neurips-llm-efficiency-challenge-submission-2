@@ -48,20 +48,21 @@ use_nested_quant = False
 output_dir = "./results"
 
 # Number of training epochs
-num_train_epochs = 1
+num_train_epochs = 10
 
 # Enable fp16/bf16 training (set bf16 to True with an A100)
 fp16 = False
-bf16 = True
+bf16 = False
+tf32 = True
 
 # Batch size per GPU for training
-per_device_train_batch_size = 1
+per_device_train_batch_size = 64
 
 # Batch size per GPU for evaluation
-per_device_eval_batch_size = 4
+per_device_eval_batch_size = 64
 
 # Number of update steps to accumulate the gradients for
-gradient_accumulation_steps = 4
+gradient_accumulation_steps = 1
 
 # Enable gradient checkpointing
 gradient_checkpointing = True

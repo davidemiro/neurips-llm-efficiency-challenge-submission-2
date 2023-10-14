@@ -11,3 +11,8 @@ peft==0.5.0
 bitsandbytes==0.40.2
 trl==0.4.7
 optimum
+protobuf==3.20.*
+xformers
+wandb
+einops
+sentencepiece
