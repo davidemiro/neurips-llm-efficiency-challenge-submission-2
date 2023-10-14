@@ -1,14 +1,13 @@
-from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig,HfArgumentParser,TrainingArguments,pipeline, logging, TextStreamer
-from peft import LoraConfig, PeftModel, prepare_model_for_kbit_training, get_peft_model
-import os, torch, wandb, platform, warnings
+from transformers import AutoModelForCausalLM, AutoTokenizer, TrainingArguments
+from peft import LoraConfig, prepare_model_for_kbit_training, get_peft_model
+import torch
 from datasets import load_dataset
 from trl import SFTTrainer
-from huggingface_hub import notebook_login
-
+from configs.training_configs import *
 import sys
 sys.path.insert(0, "/content/neurips_llm_efficiency_challenge")
 base_model, dataset_name, new_model = "mistralai/Mistral-7B-v0.1" , "gathnex/Gath_baize", "gathnex/Gath_mistral_7b"
-from configs.training_configs import *
+
 
 #allow tf32
 torch.backends.cuda.matmul.allow_tf32 = True
