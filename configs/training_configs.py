@@ -56,13 +56,13 @@ bf16 = False
 tf32 = True
 
 # Batch size per GPU for training
-per_device_train_batch_size = 64
+per_device_train_batch_size = 32
 
 # Batch size per GPU for evaluation
-per_device_eval_batch_size = 64
+per_device_eval_batch_size = 32
 
 # Number of update steps to accumulate the gradients for
-gradient_accumulation_steps = 1
+gradient_accumulation_steps = 2
 
 # Enable gradient checkpointing
 gradient_checkpointing = True
