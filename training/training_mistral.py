@@ -3,9 +3,13 @@ from peft import LoraConfig, prepare_model_for_kbit_training, get_peft_model
 import torch
 from datasets import load_dataset
 from trl import SFTTrainer
-from configs.training_configs import *
+
 import sys
 sys.path.insert(0, "/content/neurips_llm_efficiency_challenge")
+from configs.training_configs import *
+
+
+
 base_model, dataset_name, new_model = "mistralai/Mistral-7B-v0.1" , "gathnex/Gath_baize", "gathnex/Gath_mistral_7b"
 
 
