@@ -4,6 +4,9 @@ import os, torch, wandb, platform, warnings
 from datasets import load_dataset
 from trl import SFTTrainer
 from huggingface_hub import notebook_login
+
+import sys
+sys.path.insert(0, "/content/neurips_llm_efficiency_challenge")
 base_model, dataset_name, new_model = "mistralai/Mistral-7B-v0.1" , "gathnex/Gath_baize", "gathnex/Gath_mistral_7b"
 from configs.training_configs import *
 
