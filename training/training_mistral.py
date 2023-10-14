@@ -24,8 +24,7 @@ dataset["chat_sample"][0]
 model = AutoModelForCausalLM.from_pretrained(
     base_model,
     torch_dtype=torch.float16,
-    device_map={"": 0},
-    use_flash_attention_2=True
+    device_map=device_map
 )
 
 model.config.use_cache = False # silence the warnings. Please re-enable for inference!
