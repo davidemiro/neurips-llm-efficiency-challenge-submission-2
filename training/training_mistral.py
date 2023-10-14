@@ -7,13 +7,17 @@ from huggingface_hub import notebook_login
 base_model, dataset_name, new_model = "mistralai/Mistral-7B-v0.1" , "gathnex/Gath_baize", "gathnex/Gath_mistral_7b"
 from configs.training_configs import *
 
+#allow tf32
+torch.backends.cuda.matmul.allow_tf32 = True
+torch.backends.cudnn.allow_tf32 = True
+
 # Loading a Gath_baize dataset
 dataset = load_dataset(dataset_name, split="train")
 dataset["chat_sample"][0]
 
 model = AutoModelForCausalLM.from_pretrained(
     base_model,
-    torch_dtype=torch.bfloat16,
+    torch_dtype=torch.tf32,
     device_map={"": 0},
     use_flash_attention_2=True
 )
