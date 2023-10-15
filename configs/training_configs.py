@@ -60,7 +60,7 @@ learning_rate = 2e-4
 weight_decay = 0.001
 
 # Optimizer to use
-optim = "adamw_hf"
+optim = "adafactor"
 
 # Learning rate schedule (constant a bit better than cosine)
 lr_scheduler_type = "constant"
@@ -98,6 +98,9 @@ packing = False
 
 # Load the entire model on the GPU 0
 device_map = {"": 0}
+
+#torch compile
+torch_compile=True
 
 #
 ################################################################################

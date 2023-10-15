@@ -79,7 +79,7 @@ training_arguments = TrainingArguments(
     group_by_length=group_by_length,
     lr_scheduler_type=lr_scheduler_type,
     report_to="tensorboard",
-    deepseed=ds_config_dict
+    torch_compile=True
 )
 
 
