@@ -55,7 +55,9 @@ peft_config = LoraConfig(
 
 model = get_peft_model(model, peft_config)
 
-
+# Open and read the DeepSpeed Zero3
+with open('configs/ds_conf_zero3.json', 'r') as json_file:
+    ds_config_dict = json.load(json_file)
 
 # Set training parameters
 training_arguments = TrainingArguments(
@@ -76,12 +78,11 @@ training_arguments = TrainingArguments(
     warmup_ratio=warmup_ratio,
     group_by_length=group_by_length,
     lr_scheduler_type=lr_scheduler_type,
-    report_to="tensorboard"
+    report_to="tensorboard",
+    deepseed=ds_config_dict
 )
 
-# Open and read the DeepSpeed Zero3
-with open('configs/ds_conf_zero3.json', 'r') as json_file:
-    ds_config_dict = json.load(json_file)
+
 
 # Set supervised fine-tuning parameters
 trainer = SFTTrainer(
@@ -93,7 +94,7 @@ trainer = SFTTrainer(
     args=training_arguments,
     packing=packing,
     formatting_func=prompt_formatter_mistral_func,
-    deepseed=ds_config_dict
+
 )
 
 # Train model
