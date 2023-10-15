@@ -108,7 +108,7 @@ end_layer_dropout = 0.2
 ################################################################################
 
 # Maximum sequence length to use
-max_seq_length = None
+max_seq_length = 2048
 
 # Pack multiple short examples in the same input sequence to increase efficiency
 packing = False

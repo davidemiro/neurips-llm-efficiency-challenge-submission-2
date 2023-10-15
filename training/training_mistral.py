@@ -2,11 +2,15 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, TrainingArguments
 from peft import LoraConfig, prepare_model_for_kbit_training, get_peft_model
 import torch
 from datasets import load_dataset
+
 from trl import SFTTrainer
+
 
 import sys
 sys.path.insert(0, "/content/neurips_llm_efficiency_challenge")
+from dataset.dataset_full import load
 from configs.training_configs import *
+from dataset.prompt_formatter import prompt_formatter_mistral_func
 
 
 
@@ -17,9 +21,8 @@ base_model, dataset_name, new_model = "mistralai/Mistral-7B-v0.1" , "gathnex/Gat
 torch.backends.cuda.matmul.allow_tf32 = True
 torch.backends.cudnn.allow_tf32 = True
 
-# Loading a Gath_baize dataset
-dataset = load_dataset(dataset_name, split="train")
-dataset["chat_sample"][0]
+# Loading the competition dataset
+dataset = load()
 
 model = AutoModelForCausalLM.from_pretrained(
     base_model,
@@ -44,7 +47,6 @@ peft_config = LoraConfig(
         lora_dropout=lora_dropout,
         bias="none",
         task_type="CAUSAL_LM",
-        target_modules=["q_proj", "k_proj", "v_proj", "o_proj","gate_proj"]
     )
 
 model = get_peft_model(model, peft_config)
@@ -81,7 +83,7 @@ trainer = SFTTrainer(
     tokenizer=tokenizer,
     args=training_arguments,
     packing=packing,
-    dataset_text_field="chat_sample"
+    formatting_func=prompt_formatter_mistral_func
 )
 
 # Train model
