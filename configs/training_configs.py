@@ -3,19 +3,18 @@
 
 
 # The model that you want to train from the Hugging Face hub
-model_name = "meta-llama/Llama-2-13b-chat-hf"
+model_name = "mistralai/Mistral-7B-v0.1"
 
-# The instruction datasets to use
-dataset_name = "databricks/databricks-dolly-15k"
+
 
 # Fine-tuned model name
-new_model = "llama-2-13b-neurips_dm"
+new_model = "Mistral-neurips_dm"
 
 ################################################################################
 # QLoRA parameters
 ################################################################################
 
-# LoRA attention dimension
+# LoRA rank dimension
 lora_r = 64
 
 # Alpha parameter for LoRA scaling
@@ -23,22 +22,6 @@ lora_alpha = 16
 
 # Dropout probability for LoRA layers
 lora_dropout = 0.1
-
-################################################################################
-# bitsandbytes parameters
-################################################################################
-
-# Activate 4-bit precision base model loading
-use_4bit = True
-
-# Compute dtype for 4-bit base models
-bnb_4bit_compute_dtype = "float16"
-
-# Quantization type (fp4 or nf4)
-bnb_4bit_quant_type = "nf4"
-
-# Activate nested quantization for 4-bit base models (double quantization)
-use_nested_quant = False
 
 ################################################################################
 # TrainingArguments parameters
