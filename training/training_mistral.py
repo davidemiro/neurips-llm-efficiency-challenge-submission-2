@@ -12,6 +12,10 @@ from dataset.dataset_full import load
 from configs.training_configs import *
 from dataset.prompt_formatter import prompt_formatter_mistral_func
 
+import json
+
+
+
 
 
 base_model, dataset_name, new_model = "mistralai/Mistral-7B-v0.1" , "gathnex/Gath_baize", "gathnex/Gath_mistral_7b"
@@ -52,6 +56,7 @@ peft_config = LoraConfig(
 model = get_peft_model(model, peft_config)
 
 
+
 # Set training parameters
 training_arguments = TrainingArguments(
     output_dir=output_dir,
@@ -74,6 +79,10 @@ training_arguments = TrainingArguments(
     report_to="tensorboard"
 )
 
+# Open and read the DeepSpeed Zero3
+with open('configs/ds_conf_zero3.json', 'r') as json_file:
+    ds_config_dict = json.load(json_file)
+
 # Set supervised fine-tuning parameters
 trainer = SFTTrainer(
     model=model,
@@ -83,7 +92,8 @@ trainer = SFTTrainer(
     tokenizer=tokenizer,
     args=training_arguments,
     packing=packing,
-    formatting_func=prompt_formatter_mistral_func
+    formatting_func=prompt_formatter_mistral_func,
+    deepseed=ds_config_dict
 )
 
 # Train model
