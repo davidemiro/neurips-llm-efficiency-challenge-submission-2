@@ -18,9 +18,6 @@ import json
 
 
 
-base_model, dataset_name, new_model = "mistralai/Mistral-7B-v0.1" , "gathnex/Gath_baize", "gathnex/Gath_mistral_7b"
-
-
 #allow tf32
 torch.backends.cuda.matmul.allow_tf32 = True
 torch.backends.cudnn.allow_tf32 = True
@@ -29,7 +26,7 @@ torch.backends.cudnn.allow_tf32 = True
 dataset = load()
 
 model = AutoModelForCausalLM.from_pretrained(
-    base_model,
+    model_name,
     torch_dtype=torch.float16,
     device_map=device_map
 )
@@ -39,7 +36,7 @@ model.config.pretraining_tp = 1
 model.gradient_checkpointing_enable()
 
 # Load tokenizer
-tokenizer = AutoTokenizer.from_pretrained(base_model, trust_remote_code=True)
+tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
 tokenizer.pad_token = tokenizer.eos_token
 tokenizer.add_eos_token = True
 tokenizer.add_bos_token, tokenizer.add_eos_token
@@ -102,3 +99,4 @@ trainer.train()
 
 # Save trained model
 trainer.model.save_pretrained(new_model)
+trainer.model.push_to_hub(token=access_token)
