@@ -2,6 +2,7 @@ from transformers import AutoModelForCausalLM, AutoTokenizer, TrainingArguments
 from peft import LoraConfig, prepare_model_for_kbit_training, get_peft_model
 import torch
 from datasets import load_dataset
+from optimum.bettertransformer import BetterTransformer
 
 from trl import SFTTrainer
 
@@ -18,18 +19,18 @@ import json
 
 
 
-#allow tf32
-torch.backends.cuda.matmul.allow_tf32 = True
-torch.backends.cudnn.allow_tf32 = True
+
 
 # Loading the competition dataset
 dataset = load()
 
 model = AutoModelForCausalLM.from_pretrained(
     model_name,
-    load_in_8bit=True,
+    torch_dtype=torch.float16,
     device_map=device_map
 )
+
+model = BetterTransformer.transform(model)
 
 model.config.use_cache = False # silence the warnings. Please re-enable for inference!
 model.config.pretraining_tp = 1
@@ -41,6 +42,8 @@ tokenizer.pad_token = tokenizer.eos_token
 tokenizer.add_eos_token = True
 tokenizer.add_bos_token, tokenizer.add_eos_token
 
+
+model = prepare_model_for_kbit_training(model)
 peft_config = LoraConfig(
         r=lora_r,
         lora_alpha=lora_alpha,
@@ -51,9 +54,7 @@ peft_config = LoraConfig(
 
 model = get_peft_model(model, peft_config)
 
-# Open and read the DeepSpeed Zero3
-with open('configs/ds_conf_zero3.json', 'r') as json_file:
-    ds_config_dict = json.load(json_file)
+
 
 # Set training parameters
 training_arguments = TrainingArguments(

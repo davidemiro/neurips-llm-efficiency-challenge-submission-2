@@ -35,13 +35,13 @@ bf16 = True
 tf32 = False
 
 # Batch size per GPU for training
-per_device_train_batch_size = 64
+per_device_train_batch_size = 1
 
 # Batch size per GPU for evaluation
 per_device_eval_batch_size = 1
 
 # Number of update steps to accumulate the gradients for
-gradient_accumulation_steps = 1
+gradient_accumulation_steps = 16
 
 # Enable gradient checkpointing
 gradient_checkpointing = False
@@ -96,7 +96,7 @@ packing = False
 device_map = {"": 0}
 
 #torch compile
-torch_compile = False
+torch_compile=True
 
 #
 ################################################################################
