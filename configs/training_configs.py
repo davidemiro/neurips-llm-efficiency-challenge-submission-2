@@ -11,7 +11,7 @@ new_model = "Mistral-neurips_dm"
 ################################################################################
 
 # LoRA rank dimension
-lora_r = 128
+lora_r = 256
 
 # Alpha parameter for LoRA scaling
 lora_alpha = 64
@@ -41,10 +41,10 @@ per_device_train_batch_size = 1
 per_device_eval_batch_size = 1
 
 # Number of update steps to accumulate the gradients for
-gradient_accumulation_steps = 16
+gradient_accumulation_steps = 1
 
 # Enable gradient checkpointing
-gradient_checkpointing = False
+gradient_checkpointing = True
 
 # Maximum gradient normal (gradient clipping)
 max_grad_norm = 0.3
@@ -63,7 +63,7 @@ lr_scheduler_type = "constant"
 
 
 # Number of training steps (overrides num_train_epochs)
-max_steps = 100000
+max_steps = 120000
 
 # Ratio of steps for a linear warmup (from 0 to learning rate)
 warmup_ratio = 0.03
@@ -73,7 +73,7 @@ warmup_ratio = 0.03
 group_by_length = True
 
 # Save checkpoint every X updates steps
-save_steps = 10000
+save_steps = 120000
 
 # Log every X updates steps
 logging_steps = 100

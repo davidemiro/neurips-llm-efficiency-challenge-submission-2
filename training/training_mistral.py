@@ -16,7 +16,8 @@ from dataset.prompt_formatter import prompt_formatter_mistral_func
 import json
 
 
-
+import torch._dynamo
+torch._dynamo.config.suppress_errors = True
 
 
 
@@ -30,7 +31,6 @@ model = AutoModelForCausalLM.from_pretrained(
     device_map=device_map
 )
 
-model = BetterTransformer.transform(model)
 
 model.config.use_cache = False # silence the warnings. Please re-enable for inference!
 model.config.pretraining_tp = 1
@@ -41,7 +41,6 @@ tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
 tokenizer.pad_token = tokenizer.eos_token
 tokenizer.add_eos_token = True
 tokenizer.add_bos_token, tokenizer.add_eos_token
-
 
 model = prepare_model_for_kbit_training(model)
 peft_config = LoraConfig(
@@ -62,6 +61,7 @@ training_arguments = TrainingArguments(
     num_train_epochs=num_train_epochs,
     per_device_train_batch_size=per_device_train_batch_size,
     gradient_accumulation_steps=gradient_accumulation_steps,
+    gradient_checkpointing= gradient_checkpointing,
     optim=optim,
     save_steps=save_steps,
     logging_steps=logging_steps,
@@ -73,7 +73,7 @@ training_arguments = TrainingArguments(
     group_by_length=group_by_length,
     lr_scheduler_type=lr_scheduler_type,
     report_to="tensorboard",
-    torch_compile=True
+    bf16 = True
 )
 
 
@@ -86,6 +86,7 @@ trainer = SFTTrainer(
     tokenizer=tokenizer,
     args=training_arguments,
     packing=packing,
+    group_by_length=group_by_length,
     formatting_func=prompt_formatter_mistral_func,
 
 )
