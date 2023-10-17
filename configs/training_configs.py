@@ -35,7 +35,7 @@ bf16 = True
 tf32 = False
 
 # Batch size per GPU for training
-per_device_train_batch_size = 1
+per_device_train_batch_size = 64
 
 # Batch size per GPU for evaluation
 per_device_eval_batch_size = 1

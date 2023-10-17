@@ -27,7 +27,7 @@ dataset = load()
 
 model = AutoModelForCausalLM.from_pretrained(
     model_name,
-    torch_dtype=torch.float16,
+    load_in_8bit=True,
     device_map=device_map
 )
 
@@ -41,7 +41,6 @@ tokenizer.pad_token = tokenizer.eos_token
 tokenizer.add_eos_token = True
 tokenizer.add_bos_token, tokenizer.add_eos_token
 
-model = prepare_model_for_kbit_training(model)
 peft_config = LoraConfig(
         r=lora_r,
         lora_alpha=lora_alpha,
@@ -67,9 +66,6 @@ training_arguments = TrainingArguments(
     logging_steps=logging_steps,
     learning_rate=learning_rate,
     weight_decay=weight_decay,
-    fp16=fp16,
-    bf16=bf16,
-    tf32=tf32,
     max_grad_norm=max_grad_norm,
     max_steps=max_steps,
     warmup_ratio=warmup_ratio,
@@ -78,7 +74,6 @@ training_arguments = TrainingArguments(
     report_to="tensorboard",
     torch_compile=True
 )
-
 
 
 # Set supervised fine-tuning parameters
@@ -99,4 +94,4 @@ trainer.train()
 
 # Save trained model
 trainer.model.save_pretrained(new_model)
-trainer.model.push_to_hub(token=access_token)
+trainer.model.push_to_hub(token="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")
