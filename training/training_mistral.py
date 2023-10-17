@@ -1,9 +1,8 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer, TrainingArguments
 from peft import LoraConfig, prepare_model_for_kbit_training, get_peft_model
 import torch
-from datasets import load_dataset
-from optimum.bettertransformer import BetterTransformer
-
+import torch._dynamo
+torch._dynamo.config.suppress_errors = True
 from trl import SFTTrainer
 
 
@@ -12,13 +11,6 @@ sys.path.insert(0, "/content/neurips_llm_efficiency_challenge")
 from dataset.dataset_full import load
 from configs.training_configs import *
 from dataset.prompt_formatter import prompt_formatter_mistral_func
-
-import json
-
-
-import torch._dynamo
-torch._dynamo.config.suppress_errors = True
-
 
 
 
@@ -58,7 +50,7 @@ model = get_peft_model(model, peft_config)
 # Set training parameters
 training_arguments = TrainingArguments(
     output_dir=output_dir,
-    num_train_epochs=num_train_epochs,
+    per_device_time_limit=84600,
     per_device_train_batch_size=per_device_train_batch_size,
     gradient_accumulation_steps=gradient_accumulation_steps,
     gradient_checkpointing= gradient_checkpointing,
@@ -72,7 +64,7 @@ training_arguments = TrainingArguments(
     warmup_ratio=warmup_ratio,
     group_by_length=group_by_length,
     lr_scheduler_type=lr_scheduler_type,
-    report_to="tensorboard",
+    report_to="none",
     bf16 = True
 )
 

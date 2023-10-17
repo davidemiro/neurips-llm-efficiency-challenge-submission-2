@@ -14,6 +14,6 @@ def sft_format(batch):
     return {"instruction" : instructions, "response": responses}
 
 def load_orca():
-    dataset = load_dataset("Open-Orca/OpenOrca", split="train[:80000]")
+    dataset = load_dataset("Open-Orca/OpenOrca", split="train[:120000]")
     return dataset.map(sft_format, batched=True)
 

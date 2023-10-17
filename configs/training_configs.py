@@ -11,7 +11,7 @@ new_model = "Mistral-neurips_dm"
 ################################################################################
 
 # LoRA rank dimension
-lora_r = 256
+lora_r = 512
 
 # Alpha parameter for LoRA scaling
 lora_alpha = 64
@@ -26,8 +26,7 @@ lora_dropout = 0.1
 # Output directory where the model predictions and checkpoints will be stored
 output_dir = "./results"
 
-# Number of training epochs
-num_train_epochs = 10
+
 
 # Enable fp16/bf16 training (set bf16 to True with an A100)
 fp16 = False
@@ -63,7 +62,7 @@ lr_scheduler_type = "constant"
 
 
 # Number of training steps (overrides num_train_epochs)
-max_steps = 120000
+max_steps = 160000
 
 # Ratio of steps for a linear warmup (from 0 to learning rate)
 warmup_ratio = 0.03
