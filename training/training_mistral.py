@@ -50,7 +50,6 @@ model = get_peft_model(model, peft_config)
 # Set training parameters
 training_arguments = TrainingArguments(
     output_dir=output_dir,
-    per_device_time_limit=84600,
     per_device_train_batch_size=per_device_train_batch_size,
     gradient_accumulation_steps=gradient_accumulation_steps,
     gradient_checkpointing= gradient_checkpointing,
@@ -65,7 +64,7 @@ training_arguments = TrainingArguments(
     group_by_length=group_by_length,
     lr_scheduler_type=lr_scheduler_type,
     report_to="none",
-    bf16 = True
+    bf16 = bf16
 )
 
 
@@ -88,4 +87,3 @@ trainer.train()
 
 # Save trained model
 trainer.model.save_pretrained(new_model)
-trainer.model.push_to_hub(token="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")

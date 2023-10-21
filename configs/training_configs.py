@@ -62,7 +62,7 @@ lr_scheduler_type = "constant"
 
 
 # Number of training steps (overrides num_train_epochs)
-max_steps = 160000
+max_steps = 180000
 
 # Ratio of steps for a linear warmup (from 0 to learning rate)
 warmup_ratio = 0.03
@@ -72,7 +72,7 @@ warmup_ratio = 0.03
 group_by_length = True
 
 # Save checkpoint every X updates steps
-save_steps = 120000
+save_steps = 30000
 
 # Log every X updates steps
 logging_steps = 100
@@ -93,9 +93,6 @@ packing = False
 
 # Load the entire model on the GPU 0
 device_map = {"": 0}
-
-#torch compile
-torch_compile=True
 
 #
 ################################################################################

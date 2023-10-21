@@ -19,6 +19,7 @@ from transformers.integrations import HfDeepSpeedConfig
 from dataset import dataset_dolly
 from model import residual_dropout
 from optimum.bettertransformer import BetterTransformer
+from dataset.prompt_formatter import prompt_formatter_func
 
 
 
@@ -88,11 +89,11 @@ trainer = SFTTrainer(
     model=model,
     train_dataset=dataset_dolly.load_dolly_dataset(),
     peft_config=peft_config,
-    dataset_text_field="prompt",
     max_seq_length=max_seq_length,
     tokenizer=tokenizer,
     args=training_arguments,
     packing=packing,
+    formatting_func=prompt_formatter_func
 )
 
 # Train model
