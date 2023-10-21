@@ -7,7 +7,9 @@ import time
 import torch
 from huggingface_hub import login
 from transformers import AutoModelForCausalLM,AutoTokenizer
-from configs.training_configs import *
+import sys
+sys.path.insert(0, "/content/neurips_llm_efficiency_challenge")
+#from configs.training_configs import *
 
 
 torch.set_float32_matmul_precision("high")
@@ -32,13 +34,13 @@ model = AutoModelForCausalLM.from_pretrained(
     os.environ["HUGGINGFACE_REPO"],
     token=os.environ["HUGGINGFACE_TOKEN"],
     torch_dtype=torch.float16,
-    device_map=device_map
+    device_map={"": 0}
 )
 
 
 model.eval()
 
-tokenizer = AutoTokenizer.from_pretrained(model_name)
+tokenizer = AutoTokenizer.from_pretrained("mistralai/Mistral-7B-v0.1")
 
 
 
@@ -50,6 +52,7 @@ async def process_request(input_data: ProcessRequest) -> ProcessResponse:
 
     encoded = tokenizer(input_data.prompt, return_tensors="pt")
 
+    max_seq_length = 2048
     prompt_length = encoded["input_ids"][0].size(0)
     max_returned_tokens = prompt_length + input_data.max_new_tokens
     assert max_returned_tokens <= max_seq_length , (
