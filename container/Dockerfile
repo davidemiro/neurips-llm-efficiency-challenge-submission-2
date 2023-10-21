@@ -2,10 +2,10 @@ FROM pytorch/pytorch:2.1.0-cuda12.1-cudnn8-devel
 
 RUN apt-get update  && apt-get install -y git python3-virtualenv wget
 
-RUN !pip install -q -U git+https://github.com/huggingface/transformers.git
-RUN !pip install -q -U git+https://github.com/huggingface/peft.git
-RUN !pip install -q -U git+https://github.com/huggingface/accelerate.git
-RUN !pip install trl datasets
+RUN pip install -q -U git+https://github.com/huggingface/transformers.git
+RUN pip install -q -U git+https://github.com/huggingface/peft.git
+RUN pip install -q -U git+https://github.com/huggingface/accelerate.git
+RUN pip install trl datasets
 
 WORKDIR /workspace
 # Setup server requriements
