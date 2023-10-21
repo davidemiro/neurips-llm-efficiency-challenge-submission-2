@@ -50,7 +50,9 @@ async def process_request(input_data: ProcessRequest) -> ProcessResponse:
     if input_data.seed is not None:
         torch.manual_seed(input_data.seed)
 
-    encoded = tokenizer(input_data.prompt, return_tensors="pt")
+    prompt ="<s>[INST] {} [/INST] </s>".format(input_data.prompt)
+
+    encoded = tokenizer(prompt, return_tensors="pt")
 
     max_seq_length = 2048
     prompt_length = encoded["input_ids"][0].size(0)
