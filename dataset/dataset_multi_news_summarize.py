@@ -5,36 +5,7 @@ import multiprocessing
 
 system_prompt = "Always assist with care, respect, and truth. Respond with utmost utility yet securely. Avoid harmful, unethical, prejudiced, or negative content. Ensure replies promote fairness and positivity.Given a document your task is to generate summary based solely on the information presented in the input document."
 task = "Summarize the given document."
-wnattach = WordNetAugmenter()
-chattach = CharSwapAugmenter()
 
-
-def text_attack(batch):
-    """
-    :param input: A row of the multi news summarize
-    :return: prompt SFT text attach
-    """
-
-
-    instructions = batch["instruction"]
-    responses = batch["response"]
-
-    attach_instructions = []
-    attach_responses = []
-
-    for instruction,response in zip(instructions,responses):
-
-        #extract question to attach
-        question = instruction[len(system_prompt)+1:]
-        question = question[len(task)+1:]
-
-        question = wnattach.augment(question)[0]
-        question = chattach.augment(question)[0]
-
-        attach_instructions.append("{}\n{}\n{}\n".format(system_prompt, task, question))
-        attach_responses.append(response)
-
-    return {"instruction": attach_instructions, "response": attach_responses}
 def sft_format(batch):
 
     """
@@ -79,11 +50,9 @@ def sft_format(batch):
 def load_multi_news_summarize():
     #multi_news_summarize
     # keys 'inputs', 'inputs_pretokenized', 'targets', 'targets_pretokenized'
-    dataset = load_dataset("bigscience/P3", "multi_news_summarize", split="train[:3000]")
+    dataset = load_dataset("bigscience/P3", "multi_news_summarize", split="train[:6000]")
 
     dataset = dataset.map(sft_format,batched=True)
-    dataset_attach1 = dataset.map(text_attack,batched=True,num_proc=multiprocessing.cpu_count())
-
-    return concatenate_datasets([dataset,dataset_attach1])
+    return dataset
 
 
