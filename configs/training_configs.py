@@ -61,10 +61,10 @@ optim = "adamw_hf"
 lr_scheduler_type = "constant"
 
 # Number of training epochs
-num_train_epochs = 15
+num_train_epochs = 10
 
 # Number of training steps (overrides num_train_epochs)
-max_steps = 180000
+max_steps = 120000
 
 # Ratio of steps for a linear warmup (from 0 to learning rate)
 warmup_ratio = 0.03
