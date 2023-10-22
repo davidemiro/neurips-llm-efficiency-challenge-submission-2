@@ -64,7 +64,7 @@ lr_scheduler_type = "constant"
 num_train_epochs = 15
 
 # Number of training steps (overrides num_train_epochs)
-max_steps = -1
+max_steps = 180000
 
 # Ratio of steps for a linear warmup (from 0 to learning rate)
 warmup_ratio = 0.03
