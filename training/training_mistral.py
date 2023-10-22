@@ -31,8 +31,7 @@ model.gradient_checkpointing_enable()
 # Load tokenizer
 tokenizer = AutoTokenizer.from_pretrained(model_name, trust_remote_code=True)
 tokenizer.pad_token = tokenizer.eos_token
-tokenizer.add_eos_token = True
-tokenizer.add_bos_token, tokenizer.add_eos_token
+tokenizer.padding_side = "right"
 
 model = prepare_model_for_kbit_training(model)
 peft_config = LoraConfig(
@@ -41,6 +40,16 @@ peft_config = LoraConfig(
         lora_dropout=lora_dropout,
         bias="none",
         task_type="CAUSAL_LM",
+        target_modules=[
+                "q_proj",
+                "k_proj",
+                "v_proj",
+                "o_proj",
+                "gate_proj",
+                "up_proj",
+                "down_proj",
+                "lm_head",
+            ],
     )
 
 model = get_peft_model(model, peft_config)
@@ -87,3 +96,5 @@ trainer.train()
 
 # Save trained model
 trainer.model.save_pretrained(new_model)
+
+trainer.model.push_to_hub(repo_id="mirodavide/Mistral-dm", token="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")

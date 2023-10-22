@@ -11,10 +11,10 @@ new_model = "Mistral-neurips_dm"
 ################################################################################
 
 # LoRA rank dimension
-lora_r = 512
+lora_r = 64
 
 # Alpha parameter for LoRA scaling
-lora_alpha = 64
+lora_alpha = 16
 
 # Dropout probability for LoRA layers
 lora_dropout = 0.1
@@ -60,9 +60,11 @@ optim = "adamw_hf"
 # Learning rate schedule (constant a bit better than cosine)
 lr_scheduler_type = "constant"
 
+# Number of training epochs
+num_train_epochs = 15
 
 # Number of training steps (overrides num_train_epochs)
-max_steps = 180000
+max_steps = 1
 
 # Ratio of steps for a linear warmup (from 0 to learning rate)
 warmup_ratio = 0.03
@@ -77,9 +79,7 @@ save_steps = 30000
 # Log every X updates steps
 logging_steps = 100
 
-#dropout
-start_layer_dropout = 0.0
-end_layer_dropout = 0.2
+
 
 ################################################################################
 # SFT parameters
