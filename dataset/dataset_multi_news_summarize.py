@@ -1,6 +1,7 @@
 from datasets import load_dataset, concatenate_datasets
 from textattack.augmentation import WordNetAugmenter
 from textattack.augmentation import CharSwapAugmenter
+import multiprocessing
 
 system_prompt = "Always assist with care, respect, and truth. Respond with utmost utility yet securely. Avoid harmful, unethical, prejudiced, or negative content. Ensure replies promote fairness and positivity.Given a document your task is to generate summary based solely on the information presented in the input document."
 task = "Summarize the given document."
@@ -80,8 +81,8 @@ def load_multi_news_summarize():
     # keys 'inputs', 'inputs_pretokenized', 'targets', 'targets_pretokenized'
     dataset = load_dataset("bigscience/P3", "multi_news_summarize", split="train[:3000]")
 
-    dataset = dataset.map(sft_format,batched=True);
-    dataset_attach1 = dataset.map(text_attack,batched=True)
+    dataset = dataset.map(sft_format,batched=True)
+    dataset_attach1 = dataset.map(text_attack,batched=True,num_proc=multiprocessing.cpu_count())
 
     return concatenate_datasets([dataset,dataset_attach1])
 

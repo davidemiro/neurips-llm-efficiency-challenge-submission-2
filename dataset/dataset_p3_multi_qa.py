@@ -3,6 +3,7 @@ import string
 import random
 from textattack.augmentation import WordNetAugmenter
 from textattack.augmentation import CharSwapAugmenter
+import multiprocessing
 
 system_prompt = "Always assist with care, respect, and truth. Respond with utmost utility yet securely. Avoid harmful, unethical, prejudiced, or negative content. Ensure replies promote fairness and positivity."
 task = "Given a multiple-choice question with answer choices labeled alphabetically (A, B, C, D, E, etc.), your task is to provide the letter of the correct choice as the answer. You should select the letter corresponding to the correct answer choice based on its knowledge. Your task is to only provide the letter of the correct choice as the answer."
@@ -86,7 +87,7 @@ def load_p3_multi_qa():
     dataset = load_dataset("bigscience/P3", "sciq_Multiple_Choice", split="train[:3000]")
 
     dataset = dataset.map(sft_format, batched=True)
-    dataset_attach1 = dataset.map(text_attack, batched=True)
+    dataset_attach1 = dataset.map(text_attack, batched=True, num_proc=multiprocessing.cpu_count())
 
     return concatenate_datasets([dataset, dataset_attach1])
 
