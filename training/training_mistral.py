@@ -70,7 +70,6 @@ training_arguments = TrainingArguments(
     max_grad_norm=max_grad_norm,
     max_steps=max_steps,
     warmup_ratio=warmup_ratio,
-    group_by_length=group_by_length,
     lr_scheduler_type=lr_scheduler_type,
     report_to="none",
     bf16 = bf16
