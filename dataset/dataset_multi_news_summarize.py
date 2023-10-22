@@ -52,7 +52,8 @@ def load_multi_news_summarize():
     # keys 'inputs', 'inputs_pretokenized', 'targets', 'targets_pretokenized'
     dataset = load_dataset("bigscience/P3", "multi_news_summarize", split="train[:6000]")
 
-    dataset = dataset.map(sft_format,batched=True)
+    dataset = dataset.map(sft_format,batched=True,remove_columns=['inputs', 'inputs_pretokenized', 'targets', 'targets_pretokenized'])
     return dataset
+
 
 

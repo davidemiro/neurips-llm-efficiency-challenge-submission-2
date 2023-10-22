@@ -86,10 +86,11 @@ def load_p3_multi_qa():
     # keys 'inputs', 'inputs_pretokenized', 'targets', 'targets_pretokenized'
     dataset = load_dataset("bigscience/P3", "sciq_Multiple_Choice", split="train[:3000]")
 
-    dataset = dataset.map(sft_format, batched=True)
-    dataset_attach1 = dataset.map(text_attack, batched=True, num_proc=multiprocessing.cpu_count())
+    dataset = dataset.map(sft_format, batched=True, remove_columns=['inputs', 'inputs_pretokenized', 'targets', 'targets_pretokenized','answer_choices'])
+    dataset_attach1 = dataset.map(text_attack, batched=True,num_proc=multiprocessing.cpu_count())
 
     return concatenate_datasets([dataset, dataset_attach1])
+
 
 
 
