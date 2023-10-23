@@ -12,8 +12,6 @@ RUN pip install trl datasets textattack
 WORKDIR ../training
 
 ENV HUGGINGFACE_TOKEN="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"
-ENV HUGGINGFACE_REPO="mirodavide/Mistral-neurips_dm"
-
-COPY ../training/training_mistral.py ./
+ENV HUGGINGFACE_REPO="mirodavide/Mistral-dm"
 
 CMD [ "python", "training_mistral.py"]

@@ -4,7 +4,7 @@ model_name = "mistralai/Mistral-7B-v0.1"
 
 
 # Fine-tuned model name
-new_model = "Mistral-neurips_dm"
+new_model = "Mistral-dm"
 
 ################################################################################
 # QLoRA parameters
