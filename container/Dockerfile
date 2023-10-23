@@ -13,10 +13,10 @@ COPY ./fast_api_requirements.txt fast_api_requirements.txt
 RUN pip install --no-cache-dir --upgrade -r fast_api_requirements.txt
 
 ENV HUGGINGFACE_TOKEN="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"
-ENV HUGGINGFACE_REPO="mirodavide/Mistral-neurips_dm"
+ENV HUGGINGFACE_REPO="mirodavide/Mistral-dm"
 
 # Copy over single file server
-COPY ./main.py main.py
+COPY ./inference.py inference.py
 COPY ./api.py api.py
 # Run the server
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
+CMD ["uvicorn", "inference:app", "--host", "0.0.0.0", "--port", "80"]

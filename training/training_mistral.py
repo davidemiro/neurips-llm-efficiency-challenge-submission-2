@@ -95,5 +95,3 @@ trainer.train()
 
 # Save trained model
 trainer.model.save_pretrained(new_model)
-
-trainer.model.push_to_hub(repo_id="mirodavide/Mistral-dm", token="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")
