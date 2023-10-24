@@ -12,7 +12,7 @@ WORKDIR /workspace
 COPY ./fast_api_requirements.txt fast_api_requirements.txt
 RUN pip install --no-cache-dir --upgrade -r fast_api_requirements.txt
 
-ENV HUGGINGFACE_TOKEN="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"
+ENV HUGGINGFACE_TOKEN="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"
 ENV HUGGINGFACE_REPO="mirodavide/Mistral-dm"
 
 # Copy over single file server
