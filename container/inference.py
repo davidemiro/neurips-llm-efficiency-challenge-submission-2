@@ -7,11 +7,6 @@ import time
 import torch
 from huggingface_hub import login
 from transformers import AutoModelForCausalLM,AutoTokenizer
-import sys
-sys.path.insert(0, "/content/neurips_llm_efficiency_challenge")
-
-
-system_prompt = "Always assist with care, respect, and truth. Respond with utmost utility yet securely. Avoid harmful, unethical, prejudiced, or negative content. Ensure replies promote fairness and positivity.\n"
 
 
 torch.set_float32_matmul_precision("high")
@@ -52,7 +47,7 @@ async def process_request(input_data: ProcessRequest) -> ProcessResponse:
     if input_data.seed is not None:
         torch.manual_seed(input_data.seed)
 
-    prompt ="<s>[INST] {}{} [/INST] ".format(system_prompt,input_data.prompt)
+    prompt ="<s>[INST] {} [/INST] ".format(input_data.prompt)
 
     encoded = tokenizer(prompt, return_tensors="pt")
 
