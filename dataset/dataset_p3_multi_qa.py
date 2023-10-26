@@ -45,7 +45,7 @@ def sft_format(batch):
 
 def load_p3_multi_qa():
     # keys 'inputs', 'inputs_pretokenized', 'targets', 'targets_pretokenized'
-    dataset = load_dataset("bigscience/P3", "sciq_Multiple_Choice", split="train")
+    dataset = load_dataset("bigscience/P3", "sciq_Multiple_Choice", split="train[:30000]")
     return dataset.map(sft_format, batched=True)
 
 

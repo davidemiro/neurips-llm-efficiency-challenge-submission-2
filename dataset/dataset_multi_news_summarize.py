@@ -46,7 +46,7 @@ def sft_format(batch):
 def load_multi_news_summarize():
     #multi_news_summarize
     # keys 'inputs', 'inputs_pretokenized', 'targets', 'targets_pretokenized'
-    dataset = load_dataset("bigscience/P3", "multi_news_summarize", split="train")
+    dataset = load_dataset("bigscience/P3", "multi_news_summarize", split="train[:30000]")
     return dataset.map(sft_format, batched=True)
 
 
